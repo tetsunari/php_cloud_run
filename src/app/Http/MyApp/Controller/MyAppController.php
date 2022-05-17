@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace App\Http\MyApp;
+namespace App\Http\MyApp\Controller;
 
 use App\Service\MyApp\MyAppService;
 
