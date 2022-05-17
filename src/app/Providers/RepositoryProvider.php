@@ -13,6 +13,12 @@ final class RepositoryProvider extends ServiceProvider
                 $this->app['db']
             );
         });
+
+        $this->app->bind(\App\Service\Redis\RedisInterface::class, function () {
+            return new \App\Repository\Redis\RedisRepository(
+                $this->app['redis']
+            );
+        });
     }
 
     public function boot()
