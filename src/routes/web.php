@@ -16,3 +16,4 @@ use Illuminate\Support\Facades\Route;
 
 $Router = app()->make('Illuminate\Routing\Router');
 $Router->get('/test', [\App\Http\MyApp\Controller\MyAppController::class, 'index'])->name('test_index');
+$Router->get('/redis', [\App\Http\MyApp\Controller\MyAppController::class, 'redis'])->name('redis');
