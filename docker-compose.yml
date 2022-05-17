@@ -19,5 +19,12 @@ services:
     volumes:
       - db-store:/var/lib/mysql
 
+  redis:
+    image: redis
+    ports:
+      - 6379:6379
+    volumes:
+      - ./data/redis:/data
+
 volumes:
   db-store:
