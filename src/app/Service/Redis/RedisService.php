@@ -14,7 +14,7 @@ final class RedisService
         return $this->RedisInterface->validConnect();
     }
 
-    public function setValue(Connection $Redis): ?string
+    public function setValue(Connection $Redis): string
     {
         return $this->RedisInterface->setValue($Redis);
     }

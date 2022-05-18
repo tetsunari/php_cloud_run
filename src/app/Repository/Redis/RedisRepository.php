@@ -23,7 +23,7 @@ final class RedisRepository implements RedisInterface
         }
     }
 
-    public function setValue(Connection $Redis): ?string
+    public function setValue(Connection $Redis): string
     {
         $data = [
             'me' => [
@@ -49,23 +49,12 @@ final class RedisRepository implements RedisInterface
             ]
         ];
         $data = json_encode($data);
-        try {
-            $Redis->command('SET', [self::SUGGEST_REDIS_KEY, $data]);
-            return self::SUGGEST_REDIS_KEY;
-        } catch (\Exception $e) {
-            report($e);
-            return null;
-        }
+        $Redis->command('SET', [self::SUGGEST_REDIS_KEY, $data]);
+        return self::SUGGEST_REDIS_KEY;
     }
 
     public function getValue(Connection $Redis, string $redis_key)
     {
-        try {
-            $suggest_list = $Redis->command('GET', ['json']);
-            dd($suggest_list);
-        } catch (\Exception $e) {
-            report($e);
-            dd($e);
-        }
+        if ($Redis->command('EXISTS', [$redis_key])) dd($Redis->command('GET', ['json']));
     }
 }
