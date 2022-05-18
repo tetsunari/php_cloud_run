@@ -50,14 +50,5 @@ final class RedisRepository implements RedisInterface
         $Redis->command('SET', ['json', $data]);
         $test = $Redis->command('GET', ['json']);
         dd(json_decode($test, true));
-
-
-//        $Redis->command('HSET', ['test', json_decode($data, true)]);
-//        foreach ($data as $key => $d) {
-//            $Redis->command('HMSET', [$key, $d]);
-//        }
-////        $Redis->command('HSET', ['test', ]);
-//        dd($Redis->command('HMGET', ['me', 'favorite']));
-//        dd($Redis->command('HMGET', ['me', 'favorite']));
     }
 }
