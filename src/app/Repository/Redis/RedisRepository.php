@@ -55,6 +55,6 @@ final class RedisRepository implements RedisInterface
 
     public function getValue(Connection $Redis, string $redis_key)
     {
-        if ($Redis->command('EXISTS', [$redis_key])) dd($Redis->command('GET', ['json']));
+        if ($Redis->command('EXISTS', [$redis_key])) dd($Redis->command('GET', [$redis_key]));
     }
 }
