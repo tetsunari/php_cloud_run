@@ -7,5 +7,6 @@ use Illuminate\Redis\Connections\Connection;
 interface RedisInterface
 {
     public function validConnect(): ?Connection;
-    public function setValue(Connection $Redis);
+    public function setValue(Connection $Redis): ?string;
+    public function getValue(Connection $Redis, string $redis_key);
 }

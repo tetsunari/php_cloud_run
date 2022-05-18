@@ -8,6 +8,8 @@ use Illuminate\Redis\RedisManager;
 
 final class RedisRepository implements RedisInterface
 {
+    private const SUGGEST_REDIS_KEY = 'json';
+
     public function __construct(private RedisManager $Redis)
     {}
 
@@ -21,7 +23,7 @@ final class RedisRepository implements RedisInterface
         }
     }
 
-    public function setValue(Connection $Redis)
+    public function setValue(Connection $Redis): ?string
     {
         $data = [
             'me' => [
@@ -47,8 +49,23 @@ final class RedisRepository implements RedisInterface
             ]
         ];
         $data = json_encode($data);
-        $Redis->command('SET', ['json', $data]);
-        $test = $Redis->command('GET', ['json']);
-        dd(json_decode($test, true));
+        try {
+            $Redis->command('SET', [self::SUGGEST_REDIS_KEY, $data]);
+            return self::SUGGEST_REDIS_KEY;
+        } catch (\Exception $e) {
+            report($e);
+            return null;
+        }
+    }
+
+    public function getValue(Connection $Redis, string $redis_key)
+    {
+        try {
+            $suggest_list = $Redis->command('GET', ['json']);
+            dd($suggest_list);
+        } catch (\Exception $e) {
+            report($e);
+            dd($e);
+        }
     }
 }

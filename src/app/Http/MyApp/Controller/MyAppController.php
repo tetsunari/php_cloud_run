@@ -22,6 +22,9 @@ final class MyAppController
     public function redis()
     {
         $Redis = $this->RedisService->validConnect();
-        if ($Redis instanceof Connection) $this->RedisService->setValue($Redis);
+        if ($Redis instanceof Connection) {
+            $redis_key = $this->RedisService->setValue($Redis);
+            if ($redis_key !== null) $this->RedisService->getValue($Redis, $redis_key);
+        }
     }
 }
